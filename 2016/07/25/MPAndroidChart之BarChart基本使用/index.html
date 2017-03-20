@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MPAndroidChart BarChart," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="BarChart基本设置
+写出一个BarChart
+设置XY轴
+
+
+设置数据
+
+写出一个BarChartStep1: 在布局文件里使用 BarChart123456789101112	&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MPAndroidChart之BarChart基本使用">
+<meta property="og:url" content="http://www.bigademo.com/2016/07/25/MPAndroidChart之BarChart基本使用/index.html">
+<meta property="og:site_name" content="亿特博客">
+<meta property="og:description" content="BarChart基本设置
+写出一个BarChart
+设置XY轴
+
+
+设置数据
+
+写出一个BarChartStep1: 在布局文件里使用 BarChart123456789101112	&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/">
+<meta property="og:image" content="http://pic.bigademo.com/setGranularity1.png">
+<meta property="og:image" content="http://pic.bigademo.com/setGranularity2.png">
+<meta property="og:updated_time" content="2016-08-13T06:34:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MPAndroidChart之BarChart基本使用">
+<meta name="twitter:description" content="BarChart基本设置
+写出一个BarChart
+设置XY轴
+
+
+设置数据
+
+写出一个BarChartStep1: 在布局文件里使用 BarChart123456789101112	&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/">
+<meta name="twitter:image" content="http://pic.bigademo.com/setGranularity1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> MPAndroidChart之BarChart基本使用 | 亿特博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">亿特博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MPAndroidChart之BarChart基本使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T17:03:17+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>BarChart基本设置<ul>
+<li>写出一个BarChart</li>
+<li>设置XY轴</li>
+</ul>
+</li>
+<li>设置数据</li>
+</ol>
+<h4 id="写出一个BarChart"><a href="#写出一个BarChart" class="headerlink" title="写出一个BarChart"></a>写出一个BarChart</h4><p>Step1: 在布局文件里使用 BarChart<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.github.mikephil.charting.charts.BarChart</span></span><br><span class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/barChart"</span></span><br><span class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">        <span class="attr">android:layout_marginBottom</span>=<span class="string">"16dp"</span></span><br><span class="line">        <span class="attr">android:layout_height</span>=<span class="string">"382dp"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Step2: 在代码里实例化并使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> BarChart barChart = findViewById(R.id.barChart);</span><br><span class="line"></span><br><span class="line"><span class="comment">//描述，如果不设置，则默认在表格的右下角显示“Description”</span></span><br><span class="line"><span class="comment">//内容</span></span><br><span class="line">barChart.setDescription(<span class="string">"这是一个描述"</span>);</span><br><span class="line"><span class="comment">//字的颜色</span></span><br><span class="line">barChart.setDescriptionColor(getResources().getColor(R.color.colorPrimaryDark));</span><br><span class="line"><span class="comment">//字号</span></span><br><span class="line">barChart.setDescriptionTextSize(<span class="number">22</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//是否能否拖拽</span></span><br><span class="line">barChart.setDragEnabled(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">//是否能够缩放</span></span><br><span class="line">barChart.setPinchZoom(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">//允许X轴缩放</span></span><br><span class="line">barChart.setScaleXEnabled(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">//允许Y轴缩放</span></span><br><span class="line">barChart.setScaleYEnabled(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//设置显示的动画,BarChart的动画有很多种 animateX，animateY，animateXY等</span></span><br><span class="line">barChart.animateXY(<span class="number">3000</span>,<span class="number">3000</span>);</span><br><span class="line"><span class="comment">//设置一个值，当表中的显示的树状图个数超过了设置的值，那么隐藏树状图上的值</span></span><br><span class="line">barChart.setMaxVisibleValueCount(<span class="number">90</span>);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="XY轴的设置"><a href="#XY轴的设置" class="headerlink" title="XY轴的设置"></a>XY轴的设置</h4><h5 id="X轴的设置"><a href="#X轴的设置" class="headerlink" title="X轴的设置"></a>X轴的设置</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取到X轴的操作对象</span></span><br><span class="line">XAixs xAxis = barChart.getXAxis();</span><br><span class="line"><span class="comment">//是否显示X轴的线(与X轴垂直的线),默认为true</span></span><br><span class="line">xAxis.setDrawGridLines(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//设置XAxis坐标的字在哪里显示 XAxisPosition&#123; TOP, BOTTOM, BOTH_SIDED, TOP_INSIDE, BOTTOM_INSIDE&#125;</span></span><br><span class="line">xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);</span><br><span class="line"><span class="comment">//设置X轴的值的间隔，具体不同看下面的图</span></span><br><span class="line">xAxis.setGranularity(<span class="number">1f</span>);</span><br><span class="line"><span class="comment">//设置X轴的值的个数，默认为6个，最小为2个，最大为25个</span></span><br><span class="line">xAxis.setLabelCount(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>xAxis.setGranularity(float granularity)</strong><br>官当的解释是 Set a minimum interval for the axis when zooming in. The axis is not allowed to go below  that limit. This can be used to avoid label duplicating when zooming in.<br>翻译为:  在缩放时设定最小间隔为轴线。该轴是不允许走低于该限制。这可用于避免标签翻炒在缩放时。<br>表示还是不怎么弄，上图自己看吧</p>
+<p><strong>xAxis.setGranularity(1f);</strong><br><img src="http://pic.bigademo.com/setGranularity1.png" alt="setGranularity(1f)"></p>
+<p><strong>xAxis.setGranularity(2f);</strong><br><img src="http://pic.bigademo.com/setGranularity2.png" alt="setGranularith(2f)"></p>
+<p>可以发现在X轴的值有所不同，设置为1的时候，每个树状图下都有值，当设置为2的时候，树状图下的值则是各一个显示一个</p>
+<h5 id="Y轴的设置"><a href="#Y轴的设置" class="headerlink" title="Y轴的设置"></a>Y轴的设置</h5><p>Y轴分为左右两个轴<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//得到左侧Y轴的实例</span></span><br><span class="line">YAxis leftYaxis = barChart.getAxisLeft();</span><br><span class="line"><span class="comment">//设置网格线</span></span><br><span class="line">      leftYaxis.setDrawGridLines(<span class="keyword">true</span>);</span><br><span class="line">      <span class="comment">//设置网格线的宽度</span></span><br><span class="line">      leftYaxis.setGridLineWidth(Utils.convertDpToPixel(<span class="number">1</span>));</span><br><span class="line">      <span class="comment">//设置网格线的宽度</span></span><br><span class="line">      leftYaxis.setGridColor(getResources().getColor(android.R.color.background_dark));</span><br><span class="line">      <span class="comment">//设置Y轴的值的个数，默认为6个，最小为2个，最大为25个。第二个参数 如果启用，集标签数量将被强制，即标签的准确计数指定将绘制且分布均匀沿着轴 - 这可能导致标签有不均匀值</span></span><br><span class="line">      leftYaxis.setLabelCount(<span class="number">5</span>, <span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//设置Y轴的起点值</span></span><br><span class="line">leftAxis.setAxisMinValue(<span class="number">0f</span>); </span><br><span class="line"><span class="comment">//设置将在全范围的百分比顶轴的空间。默认10F.设置在图表上最高处的值相比轴上最高值的顶端空间（总轴范围的百分比）最大值和最高值的百分比 设置为100，则最高值为最大值的1倍</span></span><br><span class="line">leftAxis.setSpaceTop(<span class="number">15f</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="设置数据"><a href="#设置数据" class="headerlink" title="设置数据"></a>设置数据</h4><p>设置数据一共需要五个步骤<br>Step1: 设置 <strong>List<entry></entry></strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BarEntry&gt; barEntries = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      Integer[] ints = &#123;<span class="number">23</span>, <span class="number">32</span>, <span class="number">45</span>, <span class="number">67</span>, <span class="number">89</span>&#125;;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ints.length; i++) &#123;</span><br><span class="line">          BarEntry barEntry = <span class="keyword">new</span> BarEntry(i+<span class="number">1</span>,Integer.valueOf(dft.format(ints[i])));</span><br><span class="line">          barEntries.add(barEntry);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Step2: 将 <strong>List<entry></entry></strong> 的对象放在 <strong>BarDataSet</strong> 里, <strong>树状图的颜色就是在这里设置的</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BarDataSet set1 = <span class="keyword">new</span> BarDataSet(barEntries, <span class="string">"the weather"</span>);</span><br><span class="line"><span class="comment">//设置每个树状图的颜色，一共有两个方法setColors和setColor</span></span><br><span class="line">   set1.setColor(getResources().getColor(android.R.color.holo_orange_dark));</span><br></pre></td></tr></table></figure></p>
+<p>Step3: 将 <strong>BarDataSet</strong> 的对象放在 <strong>List<ibardataset></ibardataset></strong> 里<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;IBarDataSet&gt; barDataSets = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">   barDataSets.add(set1);</span><br></pre></td></tr></table></figure></p>
+<p>Step4: <strong>List<ibardataset></ibardataset></strong> 的数据放在 <strong>BarData</strong> 里<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BarData barData = <span class="keyword">new</span> BarData(barDataSets);</span><br><span class="line"><span class="comment">//设置树状图的宽度</span></span><br><span class="line">   barData.setBarWidth(<span class="number">0.5f</span>);</span><br><span class="line">   <span class="comment">//设置树状图上的字的字号</span></span><br><span class="line">   barData.setValueTextSize(<span class="number">10</span>);</span><br></pre></td></tr></table></figure></p>
+<p>Step5: 将 <strong>BarData</strong> 的数据放在 <strong>BarChart</strong> 上<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">barChart.setData(barData);</span><br></pre></td></tr></table></figure></p>
+<p>这样的话就能简单的看到一个树状图了</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MPAndroidChart-BarChart/" rel="tag">#MPAndroidChart BarChart</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/09/关于在自定义ProgressDialog发现的问题及解决办法/" rel="next" title="关于在自定义ProgressDialog发现的问题及解决办法">
+                <i class="fa fa-chevron-left"></i> 关于在自定义ProgressDialog发现的问题及解决办法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/26/Hexo静态博客添加本地搜索功能/" rel="prev" title="Hexo静态博客添加本地搜索功能">
+                Hexo静态博客添加本地搜索功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Tony" />
+          <p class="site-author-name" itemprop="name">Tony</p>
+          <p class="site-description motion-element" itemprop="description">一个不聪明的程序员的记事本</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">78</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#写出一个BarChart"><span class="nav-number">1.</span> <span class="nav-text">写出一个BarChart</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XY轴的设置"><span class="nav-number">2.</span> <span class="nav-text">XY轴的设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#X轴的设置"><span class="nav-number">2.1.</span> <span class="nav-text">X轴的设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Y轴的设置"><span class="nav-number">2.2.</span> <span class="nav-text">Y轴的设置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置数据"><span class="nav-number">3.</span> <span class="nav-text">设置数据</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<!--百度自动推送-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

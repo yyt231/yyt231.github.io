@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android, Hexo, WordPress, HTTML/CSS/JS HTML5APP, 亿特博客, www.bigademo.com, 一个开发人员的记事本" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 什么是Activity?
+四大组件之一,一般的, 一个用户交互界面对应一个activity, activity 是Context的子类,同时实现了window.callback和keyevent.callback, 可以处理与窗体用户交互的事件. 我开发常用的的有ListActivity  , PreferenceActivity 等…如果界面有共同的特点或者功能的时候,还会自己定义一个Ba">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见的java及android面试题（2）">
+<meta property="og:url" content="http://www.bigademo.com/2015/04/21/常见的java及android面试题（2）/index.html">
+<meta property="og:site_name" content="亿特博客">
+<meta property="og:description" content="1. 什么是Activity?
+四大组件之一,一般的, 一个用户交互界面对应一个activity, activity 是Context的子类,同时实现了window.callback和keyevent.callback, 可以处理与窗体用户交互的事件. 我开发常用的的有ListActivity  , PreferenceActivity 等…如果界面有共同的特点或者功能的时候,还会自己定义一个Ba">
+<meta property="og:updated_time" content="2016-08-13T06:34:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见的java及android面试题（2）">
+<meta name="twitter:description" content="1. 什么是Activity?
+四大组件之一,一般的, 一个用户交互界面对应一个activity, activity 是Context的子类,同时实现了window.callback和keyevent.callback, 可以处理与窗体用户交互的事件. 我开发常用的的有ListActivity  , PreferenceActivity 等…如果界面有共同的特点或者功能的时候,还会自己定义一个Ba">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 常见的java及android面试题（2） | 亿特博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">亿特博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                常见的java及android面试题（2）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-21T10:55:51+08:00" content="2015-04-21">
+              2015-04-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>1. 什么是Activity?</strong></p>
+<p>四大组件之一,一般的, 一个用户交互界面对应一个activity, activity 是Context的子类,同时实现了window.callback和keyevent.callback, 可以处理与窗体用户交互的事件. 我开发常用的的有ListActivity  , PreferenceActivity 等…如果界面有共同的特点或者功能的时候,还会自己定义一个BaseActivity.</p>
+<p><strong>2. 请描述一下Activity生命周期。</strong></p>
+<p>生命周期描述的是一个类 从创建(new出来)到死亡(垃圾回收)的过程中会执行的方法..在这个过程中 会针对不同的生命阶段会调用不同的方法</p>
+<p>Activity从创建到销毁有多种状态，从一种状态到另一种状态时会激发相应的回调方法，这些回调方法包括：oncreateondestroy onstop onstart onresume onpause 其实这些方法都是两两对应的，</p>
+<p>onCreate创建与onDestroy销毁；</p>
+<p>onStart可见与onStop不可见；</p>
+<p>onResume可编辑（即焦点）与onPause；</p>
+<p><span lang="ZH-CN">这</span>6<span lang="ZH-CN">个方法是相对应的，那么就只剩下一个</span>onRestart<span lang="ZH-CN">方法了，这个方法在什么时候调用呢？答案就是：在</span>Activity<span lang="ZH-CN">被</span>onStop<span lang="ZH-CN">后，但是没有被</span>onDestroy<span lang="ZH-CN">，在再次启动此</span>Activity<span lang="ZH-CN">时就调用</span>onRestart<span lang="ZH-CN">（而不再调用</span>onCreate<span lang="ZH-CN">）方法；如果被</span>onDestroy<span lang="ZH-CN">了，则是调用</span>onCreate<span lang="ZH-CN">方法。</span></p>
+<p><span lang="ZH-CN">最后讲自己项目中的经验</span>,<span lang="ZH-CN">比如说客户端每次进入某个界面的时候要刷新列表</span>,<span lang="ZH-CN">这个刷新列表的操作 就放在</span>onStart()<span lang="ZH-CN">的方法里面</span>.<span lang="ZH-CN">这样保证每次用户看到的数据都是最新的</span>.</p>
+<p>多媒体播放, 播放来电话. onStop() 视频, 视频声音设置为0 , 记录视频播放的位子onStart() 根据保存的状态恢复现场</p>
+<p><strong>3.<span lang="ZH-CN">两个</span>Activity<span lang="ZH-CN">之间跳转时必然会执行的是哪几个方法。</span></strong></p>
+<p><span lang="ZH-CN">一般情况比如说有两个</span>activity,<span lang="ZH-CN">分别叫</span>A,B ,<span lang="ZH-CN">当在</span>A<span lang="ZH-CN">里面激活</span>B<span lang="ZH-CN">组件的时候</span>,A<span lang="ZH-CN">会调用</span> onPause()<span lang="ZH-CN">方法</span>,<span lang="ZH-CN">然后</span>B<span lang="ZH-CN">调用</span>onCreate() ,onStart(),OnResume() , <span lang="ZH-CN">这个时候</span>B<span lang="ZH-CN">覆盖了窗体</span>, A<span lang="ZH-CN">会调用</span>onStop()<span lang="ZH-CN">方法</span>.  <span lang="ZH-CN">如果</span>B<span lang="ZH-CN">呢 是个透明的</span>,<span lang="ZH-CN">或者是对话框的样式</span>,<span lang="ZH-CN">就不会调用</span>onStop()<span lang="ZH-CN">方法</span></p>
+<p><strong>4.<span lang="ZH-CN">横竖屏切换时候</span>Activity<span lang="ZH-CN">的生命周期。</span></strong></p>
+<p><span lang="ZH-CN">这个生命周期跟清单文件里的配置有关系</span></p>
+<p>1<span lang="ZH-CN">、不设置</span>Activity<span lang="ZH-CN">的</span>android:configChanges<span lang="ZH-CN">时，切屏会重新调用各个生命周期</span></p>
+<p><span lang="ZH-CN">默认首先销毁当前</span>activity,<span lang="ZH-CN">然后重新加载</span></p>
+<p>2<span lang="ZH-CN">、设置</span>Activity<span lang="ZH-CN">的</span>android:configChanges=”orientation|keyboardHidden”<span lang="ZH-CN">时，切屏不会重新调用各个生命周期，只会执行</span>onConfigurationChanged<span lang="ZH-CN">方法</span></p>
+<p><strong>5.<span lang="ZH-CN">你后台的</span>Activity<span lang="ZH-CN">被系统 回收怎么办？如果后台的</span>Activity<span lang="ZH-CN">由于某原因被系统回收可了，如何在被系统回收之前保存当前状态？</span></strong></p>
+<p><span lang="ZH-CN">除了在栈顶的</span>activity,<span lang="ZH-CN">其他的</span>activity<span lang="ZH-CN">都有可能在内存不足的时候被系统回收</span>,<span lang="ZH-CN">一个</span>activity<span lang="ZH-CN">越处于栈底</span>,<span lang="ZH-CN">被回收的可能性越大</span>.</p>
+<p><pre class="lang:java decode:true ">protected voidonSaveInstanceState(Bundle outState) {</pre></p>
+<p>super.onSaveInstanceState(outState);</p>
+<p>outState.putLong(“id”, 1234567890);</p>
+<p>}</p>
+<p>public void onCreate(BundlesavedInstanceState) {</p>
+<p>//判断savedInstanceState是不是空.</p>
+<p>//如果不为空就取出来</p>
+<p>super.onCreate(savedInstanceState);</p>
+<p>}<br>&nbsp;</p>
+<p>1<span lang="ZH-CN">、抛异常强制退出：</span></p>
+<p><span lang="ZH-CN">该方法通过抛异常，使程序</span>Force Close<span lang="ZH-CN">。</span></p>
+<p><span lang="ZH-CN">验证可以，但是，需要解决的问题是，如何使程序结束掉，而不弹出</span>Force Close<span lang="ZH-CN">的窗口。</span></p>
+<p>2<span lang="ZH-CN">、记录打开的</span>Activity<span lang="ZH-CN">：</span></p>
+<p><span lang="ZH-CN">每打开一个</span>Activity<span lang="ZH-CN">，就记录下来。在需要退出时，关闭每一个</span>Activity<span lang="ZH-CN">即可。</span></p>
+<p>3<span lang="ZH-CN">、发送特定广播：</span></p>
+<p><span lang="ZH-CN">在需要结束应用时，发送一个特定的广播，每个</span>Activity<span lang="ZH-CN">收到广播后，关闭即可。</span></p>
+<p>4<span lang="ZH-CN">、递归退出</span></p>
+<p><span lang="ZH-CN">在打开新的</span>Activity<span lang="ZH-CN">时使用</span>startActivityForResult<span lang="ZH-CN">，然后自己加标志，在</span>onActivityResult<span lang="ZH-CN">中处理，递归关闭。</span></p>
+<p><span lang="ZH-CN">上面是网上的一些做法</span>.</p>
+<p><span lang="ZH-CN">其实 可以通过</span> intent<span lang="ZH-CN">的</span>flag<span lang="ZH-CN">来实现</span>..intent.setFlag(FLAG_ACTIVITY_CLEAR_TOP)<span lang="ZH-CN">激活一个新的</span>activity,<span lang="ZH-CN">然后在新的</span>activity<span lang="ZH-CN">的</span>oncreate<span lang="ZH-CN">方法里面</span> finish<span lang="ZH-CN">掉。</span></p>
+<p><strong>6. Activity<span lang="ZH-CN">怎么和</span>service<span lang="ZH-CN">绑定，怎么在</span>activity<span lang="ZH-CN">中启动自己对应的</span>service<span lang="ZH-CN">？</span></strong></p>
+<p>bindService().  让activity能够访问到 service里面的方法</p>
+<p>构建一个intent对象,</p>
+<p>Intent service = new Intent(this,MyService.class);</p>
+<p>通过bindService的方法去启动一个服务,</p>
+<p>ServiceConnection 对象(重写onServiceConnected和OnServiceDisconnected方法) 和BIND_AUTO_CREATE</p>
+<p><strong>Services</strong></p>
+<p><strong>7 .什么是Service以及描述下它的生命周期。Service有哪些启动方法，有什么区别，怎样停用Service？</strong></p>
+<p><span lang="ZH-CN">在</span>Service<span lang="ZH-CN">的生命周期中，被回调的方法比</span>Activity<span lang="ZH-CN">少一些，只有</span>onCreate, onStart, onDestroy,onBind<span lang="ZH-CN">和</span>onUnbind<span lang="ZH-CN">。</span></p>
+<p><span lang="ZH-CN">通常有两种方式启动一个</span>Service,<span lang="ZH-CN">他们对</span>Service<span lang="ZH-CN">生命周期的影响是不一样的。</span></p>
+<p>1 通过startService ,Service会经历 onCreate 到onStart，然后处于运行状态，stopService的时候调用onDestroy方法。如果是调用者自己直接退出而没有调用stopService的话，Service会一直在后台运行。</p>
+<p>2 <span lang="ZH-CN"> 通过</span>bindService,Service<span lang="ZH-CN">会运行</span>onCreate<span lang="ZH-CN">，然后是调用</span>onBind<span lang="ZH-CN">， 这个时候调用者和</span>Service<span lang="ZH-CN">绑定在一起。调用者退出了，</span>Srevice<span lang="ZH-CN">就会调用</span>onUnbind-&gt;onDestroyed<span lang="ZH-CN">方法。所谓绑定在一起就共存亡了。调用者也可以通过调用</span>unbindService<span lang="ZH-CN">方法来停止服务，这时候</span>Srevice<span lang="ZH-CN">就会调用</span>onUnbind-&gt;onDestroyed<span lang="ZH-CN">方法。</span></p>
+<p>需要注意的是如果这几个方法交织在一起的话，会出现什么情况呢？</p>
+<p>一个原则是Service的onCreate 的方法只会被调用一次，就是你无论多少次的startService又bindService，Service只被创建一次。如果先是bind了，那么 start的时候就直接运行Service的onStart方法，如果先是start，那么bind的时候就直接运行onBind方法.如果 service运行期间调用了bindService，这时候再调用stopService的话，service是不会调用onDestroy方法 的，service就stop不掉了，只能先UnbindService,再StopService。如果一个service通过 startService 被start之后，多次调用startService 的话，service会多次调用onStart方法。多次调用stopService的话，service只会调用一次onDestroyed方法。如果 一个service通过bindService被start之后，多次调用bindService的话，service只会调用一次onBind方法。多 次调用unbindService的话会抛出异常。</p>
+<p><strong>8.<span lang="ZH-CN">什么时候使用</span>Service<span lang="ZH-CN">？</span></strong></p>
+<p>拥有service的进程具有较高的优先级,官方文档告诉我们，Android系统会尽量保持拥有service的进程运行，只要在该service已经被启动(start)或者客户端连接(bindService)到它。当内存不足时，需要保持，拥有service的进程具有较高的优先级。</p>
+<p>1．如果service正在调用onCreate,  onStartCommand或者onDestory方法，那么用于当前service的进程相当于前台进程以避免被killed。</p>
+<p>2．如果当前service已经被启动(start)，拥有它的进程则比那些用户可见的进程优先级低一些，但是比那些不可见的进程更重要，这就意味着service一般不会被killed.</p>
+<p>3．如果客户端已经连接到service(bindService),那么拥有Service的进程则拥有最高的优先级，可以认为service是可见的。</p>
+<p>4．如果service可以使用startForeground(int, Notification)方法来将service设置为前台状态，那么系统就认为是对用户可见的，并不会在内存不足时killed。</p>
+<p>如果有其他的应用组件作为Service,Activity等运行在相同的进程中，那么将会增加该进程的重要性。</p>
+<p>1.Service的特点可以让他在后台一直运行,可以在service里面创建线程去完成耗时的操作.</p>
+<p>2.Broadcast receiver捕获到一个事件之后,可以起一个service来完成一个耗时的操作.</p>
+<p>3.远程的service如果被启动起来,可以被多次bind, 但不会重新create. 索爱手机X10i的人脸识别的service可以被图库使用,可以被摄像机,照相机等程序使用.</p>
+<p><strong>9. 请介绍下Android的数据存储方式</strong></p>
+<p>android的数据存储的方式sharedpreference,文件,SQlite,contentprovider,网络。</p>
+<p><strong>10.<span lang="ZH-CN">为什么要用</span>ContentProvider<span lang="ZH-CN">？它和</span>sql<span lang="ZH-CN">的实现上有什么差别？</span></strong></p>
+<p>屏蔽数据存储的细节,对用户透明,用户只需要关心操作数据的uri就可以了</p>
+<p>不同app之间共享,操作数据</p>
+<p>Sql也有增删改查的方法.</p>
+<p>但是contentprovider 还可以去增删改查本地文件<br><strong>11.谈谈UI中， Padding和Margin有什么区别？</strong></p>
+<p>Padding<span lang="ZH-CN">文字对边框</span>,margin<span lang="ZH-CN">是控件对父窗体</span>.</p>
+<p><strong>12.<span lang="ZH-CN">请解释下</span>Android<span lang="ZH-CN">程序运行时权限与文件系统权限的区别。</span></strong></p>
+<p>文件系统的权限是linux权限. 比如说sharedpreference里面的Context.Mode.private  Context.Mode.world_read_able  Context.Mode_world_writeable</p>
+<p><strong>13.<span lang="ZH-CN">系统上安装了多种浏览器，能否指定某浏览器访问指定页面？</span></strong></p>
+<p><span lang="ZH-CN">找到对应的浏览器的意图</span>,<span lang="ZH-CN">传递数据</span>URI ,<span lang="ZH-CN">激活这个意图</span></p>
+<p><strong>14.<span lang="ZH-CN">对</span>android<span lang="ZH-CN">主线程的运用和理解</span>? </strong>  <span lang="ZH-CN">主</span>ui<span lang="ZH-CN">线程不能执行耗时的操作</span>,</p>
+<p><strong>15.当启动一个Activity并且新的Activity执行完后需要返回到启动它的Activity来执行  的回调函数是startActivityResult()</strong></p>
+<p><strong>16. GC内存泄露 </strong><br>出现情况:<br>1.数据库的cursor没有关闭<br>2.构造adapter时,没有使用缓存contentview<br>衍生listview的优化问题—–减少创建view的对象,充分使用contentview,可以使用一静态类来优化处理getview的过程/<br>3.Bitmap对象不使用时采用recycle()释放内存<br>4.activity中的对象的生命周期大于activity<br>调试方法: DDMS==&gt; HEAPSZIE==&gt;dataobject==&gt;[Total Size]</p>
+<p><span lang="ZH-CN"><strong>17、什么是ANR 如何避免它?</strong><br></span></p>
+<p>答：ANR：Application Not Responding，五秒</p>
+<p>在Android中，活动管理器和窗口管理器这两个系统服务负责监视应用程序的响应。当出现下列情况时，Android就会显示ANR对话框了：</p>
+<p>对输入事件(如按键、触摸屏事件)的响应超过5秒</p>
+<p>意向接受器(intentReceiver)超过10秒钟仍未执行完毕</p>
+<p>Android应用程序完全运行在一个独立的线程中(例如main)。这就意味着，任何在主线程中运行的，需要消耗大量时间的操作都会引发ANR。因为此时，你的应用程序已经没有机会去响应输入事件和意向广播(Intent broadcast)。</p>
+<p>因 此，任何运行在主线程中的方法，都要尽可能的只做少量的工作。特别是活动生命周期中的重要方法如onCreate()和 onResume()等更应如此。潜在的比较耗时的操作，如访问网络和数据库;或者是开销很大的计算，比如改变位图的大小，需要在一个单独的子线程中完成 (或者是使用异步请求，如数据库操作)。但这并不意味着你的主线程需要进入阻塞状态已等待子线程结束 – 也不需要调用Therad.wait()或者Thread.sleep()方法。取而代之的是，主线程为子线程提供一个句柄(Handler)，让子线程 在即将结束的时候调用它(xing:可以参看Snake的例子，这种方法与以前我们所接触的有所不同)。使用这种方法涉及你的应用程序，能够保证你的程序 对输入保持良好的响应，从而避免因为输入事件超过5秒钟不被处理而产生的ANR。这种实践需要应用到所有显示用户界面的线程，因为他们都面临着同样的超时 问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/21/常见的java及android面试题（1）/" rel="next" title="常见的java及android面试题（1）">
+                <i class="fa fa-chevron-left"></i> 常见的java及android面试题（1）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/23/5+ App跨平台开发之创建字页面/" rel="prev" title="5+ App跨平台开发之创建字页面">
+                5+ App跨平台开发之创建字页面 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Tony" />
+          <p class="site-author-name" itemprop="name">Tony</p>
+          <p class="site-description motion-element" itemprop="description">一个不聪明的程序员的记事本</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">78</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<!--百度自动推送-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

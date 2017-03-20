@@ -1,0 +1,834 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="网络请求,HttpURLConnection请求," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一直在使用从未去了解。刚学习的时候，只是写过一两个Demo，之后完全使用三方的网络请求框架，再也没有去了解它，再后来就出现了由于不了解三方框架，导致的严重的问题。
+
+HttpClient和HttpURLConnection都能实现Android的网络请求，由于bug的原因，Android2.3以前会使用HttpClient来请求网络，Android2.3以后HttpURLConnection逐步完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HttpURLConnection GET与POST请求">
+<meta property="og:url" content="http://www.bigademo.com/2016/08/13/HttpURLConnection GET与POST请求/index.html">
+<meta property="og:site_name" content="亿特博客">
+<meta property="og:description" content="一直在使用从未去了解。刚学习的时候，只是写过一两个Demo，之后完全使用三方的网络请求框架，再也没有去了解它，再后来就出现了由于不了解三方框架，导致的严重的问题。
+
+HttpClient和HttpURLConnection都能实现Android的网络请求，由于bug的原因，Android2.3以前会使用HttpClient来请求网络，Android2.3以后HttpURLConnection逐步完">
+<meta property="og:image" content="http://pic.bigademo.com/http_header.png">
+<meta property="og:image" content="http://pic.bigademo.com/http_requestheader.jpg">
+<meta property="og:image" content="http://pic.bigademo.com/http_Responseheader.jpg">
+<meta property="og:updated_time" content="2016-08-13T06:34:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HttpURLConnection GET与POST请求">
+<meta name="twitter:description" content="一直在使用从未去了解。刚学习的时候，只是写过一两个Demo，之后完全使用三方的网络请求框架，再也没有去了解它，再后来就出现了由于不了解三方框架，导致的严重的问题。
+
+HttpClient和HttpURLConnection都能实现Android的网络请求，由于bug的原因，Android2.3以前会使用HttpClient来请求网络，Android2.3以后HttpURLConnection逐步完">
+<meta name="twitter:image" content="http://pic.bigademo.com/http_header.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> HttpURLConnection GET与POST请求 | 亿特博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">亿特博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HttpURLConnection GET与POST请求
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-13T14:34:20+08:00" content="2016-08-13">
+              2016-08-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一直在使用从未去了解。刚学习的时候，只是写过一两个Demo，之后完全使用三方的网络请求框架，再也没有去了解它，再后来就出现了由于不了解三方框架，导致的严重的问题。</p>
+<blockquote>
+<p>HttpClient和HttpURLConnection都能实现Android的网络请求，由于bug的原因，Android2.3以前会使用HttpClient来请求网络，Android2.3以后HttpURLConnection逐步完善，渐渐的取代了HttpClient。</p>
+</blockquote>
+<p>既然要请求网络那么就必须<strong>AndroidManifest.xml</strong>里配置网络请求的权限<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">user-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTENT"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里对从以下几点讲解HttpURLConnection的网络请求</p>
+<ol>
+<li><strong>HTTP的请求和响应</strong></li>
+<li><strong>Get请求</strong></li>
+<li><strong>Post文本请求</strong></li>
+<li><strong>Post文件请求</strong></li>
+<li><strong>HTTPS请求</strong></li>
+</ol>
+<h3 id="1-HTTP的请求和响应"><a href="#1-HTTP的请求和响应" class="headerlink" title="1. HTTP的请求和响应"></a>1. HTTP的请求和响应</h3><p>我们可以在浏览器的开发者工具中清楚的看到每个文件的请求头和响应头，那么先对这两个知识点进行讲解。因为这个HttpURLConnection请求必须知道的知识<br><img src="http://pic.bigademo.com/http_header.png" alt="enter image description here"><br><a id="more"></a></p>
+<h4 id="HTTP的请求-（Request-Headers）"><a href="#HTTP的请求-（Request-Headers）" class="headerlink" title="HTTP的请求 （Request Headers）"></a>HTTP的请求 （Request Headers）</h4><blockquote>
+<p>一次请求就是向目标服务器发送一串文本，文本内容包含了一下内容。<br><img src="http://pic.bigademo.com/http_requestheader.jpg" alt="http请求头"></p>
+</blockquote>
+<p>举个栗子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//请求行</span><br><span class="line">GET /xubo_zhang/article/details/11900947 HTTP/1.1</span><br><span class="line">//请求头部</span><br><span class="line">Host: blog.csdn.net</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Referer: https://www.baidu.com/link?url=LwbEud87b4UlLoOKqIP4XNfK0QOe-pliG0MtSVMGcxnmW5CV2sryjjKJCAcCWlTmKA2jJz4vPhSTyK4QnnMEN1aa7vexr48I_GwR53Bw0Du&amp;wd=&amp;eqid=8d87fc1d000585da0000000257a1a6a5</span><br><span class="line">Accept-Encoding: gzip, deflate, sdch</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br><span class="line">If-None-Match: W/&quot;d29dca62d2a36213ff1dedbb232f525a&quot;</span><br><span class="line"></span><br><span class="line">//请求体</span><br><span class="line">username=tony&amp;password=123666</span><br></pre></td></tr></table></figure></p>
+<p>当向服务端发出了一次请求后，服务端就会对客户端的请求提供一次响应。</p>
+<h4 id="HTTP的响应-（Response-Headers）"><a href="#HTTP的响应-（Response-Headers）" class="headerlink" title="HTTP的响应 （Response Headers）"></a>HTTP的响应 （Response Headers）</h4><p><img src="http://pic.bigademo.com/http_Responseheader.jpg" alt="http响应头"></p>
+<p>举个栗子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: openresty</span><br><span class="line">Date: Wed, 03 Aug 2016 08:09:53 GMT</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Keep-Alive: timeout=20</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Cache-Control: private, max-age=0, must-revalidate</span><br><span class="line">ETag: W/&quot;d29dca62d2a36213ff1dedbb232f525a&quot;</span><br><span class="line">X-Powered-By: PHP 5.4.28</span><br><span class="line">Content-Encoding: gzip</span><br></pre></td></tr></table></figure></p>
+<p>HTTP的请求方式有多种例</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td style="text-align:left">请求指定url的数据，请求体为空（例如打开网页）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td style="text-align:left">请求指定url的数据，同时在请求体传递参数（例如登录）</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td style="text-align:left">类似于get请求，只不过返回的响应体为空，用于获取响应头。</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td style="text-align:left">从客户端向服务器传送的数据取代指定的文档的内容。</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td style="text-align:left">请求服务器删除指定的页面。</td>
+</tr>
+<tr>
+<td>CONNECT</td>
+<td style="text-align:left">HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</td>
+</tr>
+<tr>
+<td>OPTIONS</td>
+<td style="text-align:left">允许客户端查看服务器的性能。</td>
+</tr>
+<tr>
+<td>TRACE</td>
+<td style="text-align:left">回显服务器收到的请求，主要用于测试或诊断。</td>
+</tr>
+</tbody>
+</table>
+<p>常用的HTTP请求为GET和POST请求。</p>
+<h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><p>GET请求就是在请求url后面加上或不加请求的参数。其实对于Android来说无论是GET请求还是POST请求，数据都是明文的，除非是HTTPS的请求。<br>常见的GET请求有很多例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    //无参</span><br><span class="line">    http://www.baidu.com/</span><br><span class="line">    //带参</span><br><span class="line">    http://www.XXX.com/?name=Tony&amp;profession=coder;</span><br><span class="line">``` </span><br><span class="line">那么在使用GET请求的时候，将数据直接拼接在url后面即可</span><br><span class="line">### POST请求</span><br><span class="line">post请求的参数是经过编码放在请求体力。编码包括**x-www-form-urlencoded** 与 **form-data**。</span><br><span class="line"></span><br><span class="line">x-www-form-urlencoded的请求方式和GET类似</span><br></pre></td></tr></table></figure></p>
+<p>  name=Tony&amp;profession=coder<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">而form-data的请求方式是这样的</span><br></pre></td></tr></table></figure></p>
+<p>  —-WebKitFormBoundary7MA4YWxkTrZu0gW<br>  Content-Disposition: form-data; name=”tel”</p>
+<p>  13637829200<br>  —-WebKitFormBoundary7MA4YWxkTrZu0gW<br>  Content-Disposition: form-data; name=”password”</p>
+<p>  123456<br>  —-WebKitFormBoundary7MA4YWxkTrZu0gW<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在web请求的时候，有时候仅仅是文本信息，例如注册一个账号，填写好用户名，昵称，密码等信息即可，其编码方式用**x-www-form-urlencoded**即可。但是有时候就除了提交刚才的信息以外，还要提交一个文件数据，例如在完善个人资料的时候，要提交头像，那么就不能和刚才一样仅仅提交文本信息了，编码方式也只能使用**multipart/form-data**。下面对两种提交方式分开解释。</span><br><span class="line">#### POST文本请求（使用*x-www-form-urlencoded*的编码方式）</span><br></pre></td></tr></table></figure></p>
+<p>POST <a href="http://www.example.com" target="_blank" rel="external">http://www.example.com</a> HTTP/1.1<br>Content-Type: application/x-www-form-urlencoded;charset=utf-8<br>title=test&amp;sub%5B%5D=1&amp;sub%5B%5D=2&amp;sub%5B%5D=3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">主要说明参数部分的填写方式,，所以忽略了请求头，具体的方式看下面的代码部分。有上面的代码可以看出只要在请求体里声明**内容的类型**，**内容的编码**即可，记得最后加**换行**</span><br><span class="line">```java</span><br><span class="line">private String CONTENT_TYPE = &quot;multipart/form-data&quot;;</span><br><span class="line">private String LINE_END = &quot;\r\n&quot;;</span><br><span class="line">private String BOUNDARY = UUID.randomUUID().toString();</span><br><span class="line">private String CHARSET = &quot;UTF-8&quot;;</span><br><span class="line">private String PREFIX = &quot;----&quot;;</span><br><span class="line">private void postUtil(String urlPath, HashMap&lt;String, String&gt; params) &#123;</span><br><span class="line">        HttpURLConnection conn = null;</span><br><span class="line">        StringBuilder sb = null;</span><br><span class="line">        String LINE_END = &quot;\r\n&quot;;</span><br><span class="line">        try &#123;</span><br><span class="line">            URL url = new URL(urlPath);</span><br><span class="line">            //打开连接</span><br><span class="line">            conn = (HttpURLConnection) url.openConnection();</span><br><span class="line">            //设置连接超时</span><br><span class="line">            conn.setConnectTimeout(6 * 1000);</span><br><span class="line">            //设置读取超时</span><br><span class="line">            conn.setReadTimeout(6 * 1000);</span><br><span class="line">            //设置连接方式</span><br><span class="line">            conn.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">            //运行输出流信息</span><br><span class="line">            conn.setDoOutput(true);</span><br><span class="line">            //填写请求头</span><br><span class="line">            conn.addRequestProperty(&quot;Connection&quot;, &quot;Keep-Alive&quot;);</span><br><span class="line">            conn.addRequestProperty(&quot;Content-Type&quot;, CONTENT_TYPE + &quot;;boundary&quot; + BOUNDARY);</span><br><span class="line">            conn.addRequestProperty(&quot;Charsert&quot;, CHARSET);</span><br><span class="line">            sb = new StringBuilder();</span><br><span class="line">            Iterator t = params.entrySet().iterator();</span><br><span class="line">            sb.append(&quot;Content-Type: application/x-www-form-urlencoded;charset=utf-8&quot; + LINE_END);</span><br><span class="line">            while (t.hasNext()) &#123;</span><br><span class="line">                Map.Entry&lt;String, Object&gt; e = (Map.Entry&lt;String, Object&gt;) t.next();</span><br><span class="line">                String paramKey = e.getKey();</span><br><span class="line">                Object paramValue = e.getValue();</span><br><span class="line"></span><br><span class="line">                sb.append(paramKey);</span><br><span class="line">                sb.append(&quot;=&quot;);</span><br><span class="line">                sb.append(paramValue);</span><br><span class="line">                sb.append(&quot;&amp;&quot;);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            String requestHeader = sb.deleteCharAt(sb.lastIndexOf(&quot;&amp;&quot;)).toString();</span><br><span class="line"></span><br><span class="line">            OutputStream ost = conn.getOutputStream();</span><br><span class="line">            ost.write(requestHeader.getBytes());</span><br><span class="line">            ost.flush();</span><br><span class="line">            ost.close();</span><br><span class="line">            int statusCode = conn.getResponseCode();</span><br><span class="line">            if (statusCode == 200) &#123;</span><br><span class="line">                InputStream ins = conn.getInputStream();</span><br><span class="line">                String response = getStringFromStream(ins);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (MalformedURLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="POST文件请求-（使用multipart-form-data的编码方式）"><a href="#POST文件请求-（使用multipart-form-data的编码方式）" class="headerlink" title="POST文件请求  （使用multipart/form-data的编码方式）"></a>POST文件请求  （使用<em>multipart/form-data</em>的编码方式）</h4><p>文件的提交一般情况下不仅仅只有一个文件，他会附带着其他的文本信息一起提交。这个便是使用form-data的编码，参数的提交格式。</p>
+<p><strong>文本信息的格式</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">----WebKitFormBoundary7MA4YWxkTrZu0gW</span><br><span class="line"> Content-Disposition: form-data; name=&quot;tel&quot;</span><br><span class="line"></span><br><span class="line"> 13637829200</span><br><span class="line"> ----WebKitFormBoundary7MA4YWxkTrZu0gW</span><br><span class="line"> Content-Disposition: form-data; name=&quot;password&quot;</span><br><span class="line"></span><br><span class="line"> 123456</span><br><span class="line"> ----WebKitFormBoundary7MA4YWxkTrZu0gW</span><br></pre></td></tr></table></figure></p>
+<p><strong>文件信息的格式</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryrGKCBY7qhFd3TrwA</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;text&quot;</span><br><span class="line"></span><br><span class="line">title</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;chrome.png&quot;</span><br><span class="line"></span><br><span class="line">Content-Type: image/png</span><br><span class="line"></span><br><span class="line">PNG ... content of chrome.png ...</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA--</span><br></pre></td></tr></table></figure></p>
+<p>可以看到请求体有很多<strong>——WebKitFormBoundaryrGKCBY7qhFd3TrwA</strong>，这个是分隔符，用于区分每个参数信息。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String CONTENT_TYPE = <span class="string">"multipart/form-data"</span>;</span><br><span class="line">    <span class="keyword">private</span> String LINE_END = <span class="string">"\r\n"</span>;</span><br><span class="line">    <span class="keyword">private</span> String BOUNDARY = UUID.randomUUID().toString();</span><br><span class="line">    <span class="keyword">private</span> String CHARSET = <span class="string">"UTF-8"</span>;</span><br><span class="line">    <span class="keyword">private</span> String PREFIX = <span class="string">"----"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">postFileUtil</span><span class="params">(String urlPath, HashMap&lt;String, String&gt; params, HashMap&lt;String, File&gt; fileParams)</span> </span>&#123;</span><br><span class="line">        URL httpUrl = <span class="keyword">null</span>;</span><br><span class="line">        HttpURLConnection conn;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            httpUrl = <span class="keyword">new</span> URL(urlPath);</span><br><span class="line">            conn = (HttpURLConnection) httpUrl.openConnection();</span><br><span class="line">            conn.setRequestMethod(<span class="string">"POST"</span>);</span><br><span class="line">            conn.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">            conn.setDoInput(<span class="keyword">true</span>);</span><br><span class="line">            conn.setUseCaches(<span class="keyword">false</span>);</span><br><span class="line">            <span class="comment">//边界标识，随机生成</span></span><br><span class="line">            conn.setConnectTimeout(<span class="number">8</span> * <span class="number">1000</span>);</span><br><span class="line">            conn.setReadTimeout(<span class="number">8</span> * <span class="number">1000</span>);</span><br><span class="line">            <span class="comment">//填写请求头</span></span><br><span class="line">            conn.addRequestProperty(<span class="string">"Connection"</span>, <span class="string">"Keep-Alive"</span>);</span><br><span class="line">            conn.addRequestProperty(<span class="string">"Content-Type"</span>, CONTENT_TYPE + <span class="string">";boundary"</span> + BOUNDARY);</span><br><span class="line">            conn.addRequestProperty(<span class="string">"Charsert"</span>, CHARSET);</span><br><span class="line">            <span class="comment">//首先拼接文本类型的参数</span></span><br><span class="line">            Iterator t = params.entrySet().iterator();</span><br><span class="line">            StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">            <span class="keyword">while</span> (t.hasNext()) &#123;</span><br><span class="line">                Map.Entry&lt;String, String&gt; e = (Map.Entry&lt;String, String&gt;) t.next();</span><br><span class="line">                String paramsKey = e.getKey();</span><br><span class="line">                String paramsValue = e.getValue();</span><br><span class="line">                sb.append(PREFIX).append(BOUNDARY).append(LINE_END);</span><br><span class="line">                sb.append(<span class="string">"Content-Disposition: form-data; name=\""</span> + paramsKey + <span class="string">""</span> + LINE_END);</span><br><span class="line">                sb.append(<span class="string">"Content-Type: text/plain; charset="</span> + CHARSET + LINE_END);</span><br><span class="line">                sb.append(<span class="string">"Content-Transfer-Encoding: 8bit"</span> + LINE_END);</span><br><span class="line">                sb.append(LINE_END);</span><br><span class="line">                sb.append(paramsValue);</span><br><span class="line">                sb.append(LINE_END);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//其次发送文件数据，这里传的是一个File类型的文件</span></span><br><span class="line">            DataOutputStream outputStream = <span class="keyword">new</span> DataOutputStream(conn.getOutputStream());</span><br><span class="line">            outputStream.write(sb.toString().getBytes());</span><br><span class="line">            <span class="keyword">if</span> (fileParams != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (Map.Entry&lt;String, File&gt; fileEntry : fileParams.entrySet()) &#123;</span><br><span class="line">                    StringBuffer sb1 = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">                    sb1.append(PREFIX).append(BOUNDARY).append(LINE_END);</span><br><span class="line">                    sb1.append(<span class="string">"Content-Disposition: form-data; name=\"file\"; filename=\""</span> + fileEntry.getKey() + <span class="string">"\""</span> + LINE_END);</span><br><span class="line">                    sb1.append(<span class="string">"Content-Type: application/octet-stream; charset="</span> + CHARSET + LINE_END);</span><br><span class="line">                    sb1.append(LINE_END);</span><br><span class="line"></span><br><span class="line">                    outputStream.write(sb1.toString().getBytes());</span><br><span class="line">                    InputStream inputStream = <span class="keyword">new</span> FileInputStream(fileEntry.getValue());</span><br><span class="line">                    <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                    <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">while</span> ((len = inputStream.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                        outputStream.write(buffer, <span class="number">0</span>, len);</span><br><span class="line">                    &#125;</span><br><span class="line">                    inputStream.close();</span><br><span class="line">                    outputStream.write(LINE_END.getBytes());</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 请求结束标志</span></span><br><span class="line">            <span class="keyword">byte</span>[] end_data = (PREFIX + BOUNDARY + PREFIX + LINE_END).getBytes();</span><br><span class="line">            outputStream.write(end_data);</span><br><span class="line">            outputStream.flush();</span><br><span class="line">            <span class="keyword">int</span> statusCode = conn.getResponseCode();</span><br><span class="line">            <span class="keyword">if</span> (statusCode == <span class="number">200</span>) &#123;</span><br><span class="line">                InputStream is = conn.getInputStream();</span><br><span class="line">                String response = getStringFromStream(is);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为我们获取的数据都是流数据，这里提供一个流数据转String的方法(据说这个会在面试的时候问到)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">    * 把获取的流数据转为String类型</span><br><span class="line">    *</span><br><span class="line">    * <span class="doctag">@param</span> in</span><br><span class="line">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> String <span class="title">getStringFromStream</span><span class="params">(InputStream in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">       <span class="keyword">int</span> len = -<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">while</span> ((len = in.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">           bos.write(buffer, <span class="number">0</span>, len);</span><br><span class="line">       &#125;</span><br><span class="line">       in.close();</span><br><span class="line">       String state = bos.toString();</span><br><span class="line">       bos.close();</span><br><span class="line">       <span class="keyword">return</span> state;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>友情链接：</p>
+<ol>
+<li><a href="http://www.jianshu.com/p/3141d4e46240#HttpClient%20&amp;%20HttpURLConnection" target="_blank" rel="external">http://www.jianshu.com/p/3141d4e46240#HttpClient%20&amp;%20HttpURLConnection</a></li>
+<li><a href="http://www.cnblogs.com/aaronjs/p/4165049.html" target="_blank" rel="external">http://www.cnblogs.com/aaronjs/p/4165049.html</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络请求/" rel="tag">#网络请求</a>
+          
+            <a href="/tags/HttpURLConnection请求/" rel="tag">#HttpURLConnection请求</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/13/Android App使用android studio 混淆后如何获取错误信息/" rel="next" title="Android App使用android studio 混淆后如何获取错误信息">
+                <i class="fa fa-chevron-left"></i> Android App使用android studio 混淆后如何获取错误信息
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/13/SublimeText3 Node插件配置方法/" rel="prev" title="SublimeText3 Node插件配置方法">
+                SublimeText3 Node插件配置方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Tony" />
+          <p class="site-author-name" itemprop="name">Tony</p>
+          <p class="site-description motion-element" itemprop="description">一个不聪明的程序员的记事本</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">78</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HTTP的请求和响应"><span class="nav-number">1.</span> <span class="nav-text">1. HTTP的请求和响应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP的请求-（Request-Headers）"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP的请求 （Request Headers）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP的响应-（Response-Headers）"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP的响应 （Response Headers）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET请求"><span class="nav-number">2.</span> <span class="nav-text">GET请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#POST文件请求-（使用multipart-form-data的编码方式）"><span class="nav-number">2.1.</span> <span class="nav-text">POST文件请求  （使用multipart/form-data的编码方式）</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<!--百度自动推送-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
